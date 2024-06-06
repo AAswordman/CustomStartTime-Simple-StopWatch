@@ -39,7 +39,7 @@ class Stopwatch(tk.Tk):
 
     def set_custom_start(self):
         try:
-            custom_seconds = int(self.custom_time_entry.get())
+            custom_seconds = float(self.custom_time_entry.get())*60
             if custom_seconds >= 0:
                 self.start_time = time.time() - custom_seconds  # 直接更新start_time
                 self.running = True
@@ -53,6 +53,8 @@ class Stopwatch(tk.Tk):
 
     def start(self):
         if not self.running:
+            if self.elapsed_time != 0:
+                self.start_time = time.time() - self.elapsed_time
             self.running = True
             self.update_clock()
             self.start_button.config(state=tk.DISABLED)
